@@ -18,4 +18,4 @@ use Inertia\Inertia;
 Route::get('/', function () {
     return view("app");
 });
-require __DIR__.'erp/auth/.php';
+require __DIR__.'/erp/auth/web.php';
