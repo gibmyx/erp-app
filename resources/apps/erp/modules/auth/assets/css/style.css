@@ -13,3 +13,7 @@
         height: 100%;
     }
 }
+
+.errorForm {
+    color: red;
+}

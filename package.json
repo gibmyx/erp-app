@@ -20,6 +20,9 @@
         "vite": "^3.0.0"
     },
     "dependencies": {
-        "babel-preset-react": "^6.24.1"
+        "@hookform/resolvers": "^2.9.7",
+        "babel-preset-react": "^6.24.1",
+        "react-hook-form": "^7.34.0",
+        "yup": "^0.32.11"
     }
 }
