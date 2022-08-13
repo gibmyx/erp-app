@@ -19,3 +19,4 @@ Route::get('/', function () {
     return ['Laravel' => app()->version()];
 });
 require __DIR__.'/erp/auth/web.php';
+require __DIR__.'/erp/dashboard/web.php';

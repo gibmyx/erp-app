@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Erp\Auth;
+namespace App\Http\Controllers\old\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;

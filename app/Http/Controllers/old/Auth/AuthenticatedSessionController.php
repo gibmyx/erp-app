@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Erp\Auth;
+namespace App\Http\Controllers\old\Auth;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;

@@ -26,7 +26,9 @@ class AuthenticatedSessionController extends Controller
         if(false == Auth::guard("web")->attempt($credentials))
             return new Response(["message" => "El correo o la contraseña no coinciden"], Response::HTTP_NOT_FOUND);
 
-        return new Response([], Response::HTTP_OK);
+        return new Response([
+            'user' => Auth::user()
+        ], Response::HTTP_OK);
     }
 
     public function logout(Request $request)
@@ -38,5 +40,12 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerateToken();
 
         return new Response("", Response::HTTP_OK);
+    }
+
+    public function veriftUser()
+    {
+        return new Response([
+            'user' => Auth::guard('web')->user()
+        ], Response::HTTP_OK);
     }
 }
