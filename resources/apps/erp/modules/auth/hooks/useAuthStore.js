@@ -39,7 +39,7 @@ export const useAuthStore = () => {
     }
 
     const startLogout = async () => {
-        await reminderApi.post('/auth/logout');
+        await erpApi.post('/auth/logout');
         dispatch(onLogout());
     }
 
