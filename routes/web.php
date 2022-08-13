@@ -16,6 +16,6 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return view("app");
+    return ['Laravel' => app()->version()];
 });
 require __DIR__.'/erp/auth/web.php';
