@@ -10,10 +10,10 @@ use Illuminate\Support\Facades\Route;
     Route::get('/auth/reset-password/{token}', AppErpController::class)->name('password.reset');
 
     Route::post('/auth/login', AuthenticatedSessionController::class);
-    Route::post('/auth/logout', [AuthenticatedSessionController::class, 'logout']);
 //});
 
 Route::middleware('auth:web')->group(function () {
+    Route::post('/auth/logout', [AuthenticatedSessionController::class, 'logout']);
     Route::get('/auth/verify-user', [AuthenticatedSessionController::class, 'veriftUser']);
 });
 
