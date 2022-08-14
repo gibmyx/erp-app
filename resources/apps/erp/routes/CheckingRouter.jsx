@@ -7,7 +7,7 @@ export const CheckingRouter = () => {
 
     useEffect(() => {
         checkingAuth()
-    }, [status]);
+    }, []);
 
     return (
         <div>Loadingaa...</div>

@@ -20,7 +20,7 @@ const defaultValues = {
 const Login = () => {
     const {startLogin} = useAuthStore();
 
-    const { register, handleSubmit, formState:{ errors } } = useForm({
+    const { register, handleSubmit, formState:{ errors , isSubmitted} } = useForm({
         defaultValues,
         resolver: yupResolver(schema)
     });
@@ -62,7 +62,7 @@ const Login = () => {
                 </div>
 
                 <div className="text-center text-lg-start mt-4 pt-2">
-                    <button type="submit" className="btn btn-primary"
+                    <button type="submit" className="btn btn-primary" disabled={isSubmitted}
                             style={{paddingLeft: '2.5rem', paddingRight: '2.5rem'}}>Entrar
                     </button>
                 </div>

@@ -2,11 +2,13 @@ import {useDispatch, useSelector} from 'react-redux';
 import erpApi from "../../../../shared/api/erpApi";
 
 import {
+    onCheckingIsLoading,
     onChecking,
     onLogin,
     onLogout,
     TYPE_CHECKING,
     TYPE_AUTHENTICATED,
+    TYPE_CHECKING_IS_LOGIN,
     TYPE_NOT_AUTHENTICATED
 } from '../../../store';
 
@@ -18,10 +20,11 @@ export const useAuthStore = () => {
     const dispatch = useDispatch();
 
     const startLogin = async ({email, password}) => {
-        dispatch(onChecking());
+
         try {
             const {data} = await erpApi.post('/auth/login', {email, password});
             const {user} = data
+            localStorage.setItem('user', user);
             dispatch(onLogin(user));
         } catch (error) {
             dispatch(onLogout(error.response.data.message));
@@ -29,9 +32,14 @@ export const useAuthStore = () => {
     }
 
     const checkingAuth = async() => {
+
+        const user = localStorage.getItem('user');
+        if ( !user ) return dispatch( onLogout() );
+
         try {
             const { data } = await erpApi.get('/auth/verify-user');
             const {user} = data
+            localStorage.setItem('user', user );
             dispatch(onLogin(user));
         } catch (error) {
             dispatch(onLogout());
@@ -40,6 +48,7 @@ export const useAuthStore = () => {
 
     const startLogout = async () => {
         await erpApi.post('/auth/logout');
+        localStorage.clear();
         dispatch(onLogout());
     }
 
@@ -48,6 +57,7 @@ export const useAuthStore = () => {
         status,
         TYPE_CHECKING,
         TYPE_AUTHENTICATED,
+        TYPE_CHECKING_IS_LOGIN,
         TYPE_NOT_AUTHENTICATED,
         // user,
 
