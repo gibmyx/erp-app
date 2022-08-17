@@ -7,7 +7,7 @@ import {CheckingRouter} from "./CheckingRouter";
 
 export const AppRouter = () => {
 
-    const {status, TYPE_CHECKING, TYPE_NOT_AUTHENTICATED, TYPE_CHECKING_IS_LOGIN} = useAuthStore()
+    const {status, TYPE_CHECKING, TYPE_NOT_AUTHENTICATED} = useAuthStore()
 
     if (status === TYPE_CHECKING)
         return <CheckingRouter/>
@@ -17,7 +17,7 @@ export const AppRouter = () => {
             <Suspense fallback={<div>Loading...</div>}>
                 <Routes>
                     {
-                        (status === TYPE_NOT_AUTHENTICATED || status === TYPE_CHECKING_IS_LOGIN)
+                        (status === TYPE_NOT_AUTHENTICATED)
                             ? (
                                 <>
                                     <Route path="/auth/*" element={<AuthRoutes/>}/>

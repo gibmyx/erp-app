@@ -2,13 +2,11 @@ import {useDispatch, useSelector} from 'react-redux';
 import erpApi from "../../../../shared/api/erpApi";
 
 import {
-    onCheckingIsLoading,
     onChecking,
     onLogin,
     onLogout,
     TYPE_CHECKING,
     TYPE_AUTHENTICATED,
-    TYPE_CHECKING_IS_LOGIN,
     TYPE_NOT_AUTHENTICATED
 } from '../../../store';
 
@@ -57,7 +55,6 @@ export const useAuthStore = () => {
         status,
         TYPE_CHECKING,
         TYPE_AUTHENTICATED,
-        TYPE_CHECKING_IS_LOGIN,
         TYPE_NOT_AUTHENTICATED,
         // user,
 
