@@ -27,6 +27,7 @@
         "yup": "^0.32.11",
         "react-redux": "^8.0.2",
         "simplebar": "5.3.8",
+        "feather-icons": "4.29.0",
         "@reduxjs/toolkit": "^1.8.1"
     }
 }

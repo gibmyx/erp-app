@@ -2,7 +2,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import erpApi from "../../../../shared/api/erpApi";
 
 import {
-    onChecking,
     onLogin,
     onLogout,
     TYPE_CHECKING,
@@ -25,6 +24,7 @@ export const useAuthStore = () => {
             localStorage.setItem('user', user);
             dispatch(onLogin(user));
         } catch (error) {
+            localStorage.clear();
             dispatch(onLogout(error.response.data.message));
         }
     }
@@ -40,6 +40,7 @@ export const useAuthStore = () => {
             localStorage.setItem('user', user );
             dispatch(onLogin(user));
         } catch (error) {
+            localStorage.clear();
             dispatch(onLogout());
         }
     }
@@ -61,7 +62,7 @@ export const useAuthStore = () => {
         //* Métodos
         startLogin,
         startLogout,
-        checkingAuth,
+        checkingAuth
     }
 
 }

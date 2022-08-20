@@ -12,7 +12,6 @@ class AuthenticatedSessionController extends Controller
 {
     public function __invoke(Request $request)
     {
-        sleep(5);
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|string|min:6',
