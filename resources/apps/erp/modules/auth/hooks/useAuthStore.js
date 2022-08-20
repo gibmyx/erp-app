@@ -31,11 +31,8 @@ export const useAuthStore = () => {
 
     const startForgotPassword = async ({email}) => {
         try {
-            const response = await erpApi.post('/auth/forgot-password', {email});
-            console.log(response)
+            await erpApi.post('/auth/forgot-password', {email});
         } catch (error) {
-            localStorage.clear();
-            dispatch(onLogout(error.response.data.message));
         }
     }
 
