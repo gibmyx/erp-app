@@ -2,7 +2,7 @@ import imgLogin from "../assets/img/img.png";
 import './../assets/css/style.css'
 
 const AuthLayout = ({children}) => (
-    <section className="vh-100">
+    <section className="vh-100" style={{overflow: "hidden"}}>
         <div className="container-fluid h-custom">
             <div className="row d-flex justify-content-center align-items-center h-100">
                 <div className="col-md-9 col-lg-6 col-xl-5">

@@ -3,6 +3,7 @@ import AuthLayout from "../layout/AuthLayout";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import {useForm} from "react-hook-form";
+import {useAuthStore} from "../hooks";
 
 const schema = yup.object({
     email: yup.string().email().required(),
@@ -12,13 +13,15 @@ const defaultValues = {
     email: '',
 }
 const ForgotPassword = () => {
+    const {startForgotPassword} = useAuthStore()
 
     const { register, handleSubmit, formState:{ errors } } = useForm({
         defaultValues,
         resolver: yupResolver(schema)
     });
+
     const onSubmit = data => {
-        console.log(data)
+        startForgotPassword(data)
     };
 
     return (
