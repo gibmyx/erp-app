@@ -4,6 +4,7 @@ import * as yup from "yup";
 import {useForm} from "react-hook-form";
 import {useLocation, useParams} from "react-router";
 import queryString from 'query-string';
+import {useAuthStore} from "../hooks";
 
 const schema = yup.object({
     password: yup.string().min(8, "La contraseña requiere 8 caracteres minimo").required("Este campo es requerido"),
@@ -19,6 +20,8 @@ const ResetPassword = () => {
     const location = useLocation()
     const querystring = queryString.parse(location.search);
 
+    const {startResetPassword} = useAuthStore();
+
     const { register, handleSubmit, formState:{ errors } } = useForm({
         defaultValues: {
             token: params.token,
@@ -29,7 +32,7 @@ const ResetPassword = () => {
         resolver: yupResolver(schema)
     });
     const onSubmit = data => {
-        console.log(data)
+        startResetPassword(data)
     };
 
     return (

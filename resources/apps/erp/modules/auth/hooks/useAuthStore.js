@@ -36,6 +36,13 @@ export const useAuthStore = () => {
         }
     }
 
+    const startResetPassword = async ({email, token, password, confirmedPassword}) => {
+        try {
+            await erpApi.post('/auth/reset-password', {email, token, password, password_confirmation: confirmedPassword});
+        } catch (error) {
+        }
+    }
+
     const checkingAuth = async() => {
 
         const user = localStorage.getItem('user');
@@ -70,6 +77,7 @@ export const useAuthStore = () => {
         startLogin,
         startLogout,
         checkingAuth,
+        startResetPassword,
         startForgotPassword,
     }
 

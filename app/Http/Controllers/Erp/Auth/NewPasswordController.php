@@ -33,16 +33,17 @@ class NewPasswordController extends Controller
             }
         );
 
-        if ($status == Password::PASSWORD_RESET) {
-            return response()->json([
-                "message" => $status,
-                "ok" => true
-            ], Response::HTTP_OK);
+        if ($status == Password::PASSWORD_RESET){
+            $code = Response::HTTP_OK;
+        } elseif ($status == Password::INVALID_USER || $status == Password::INVALID_TOKEN) {
+            $code = Response::HTTP_BAD_REQUEST;
+        } else {
+            $code = Response::HTTP_BAD_REQUEST;
         }
 
         return response()->json([
             "message" => $status,
-            "ok" => false
-        ], Response::HTTP_UNPROCESSABLE_ENTITY);
+            "ok" => $status == Password::PASSWORD_RESET ? true : false
+        ], $code);
     }
 }
