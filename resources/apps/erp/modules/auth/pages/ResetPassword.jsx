@@ -2,6 +2,8 @@ import AuthLayout from "../layout/AuthLayout";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import {useForm} from "react-hook-form";
+import {useLocation, useParams} from "react-router";
+import queryString from 'query-string';
 
 const schema = yup.object({
     password: yup.string().min(8, "La contraseña requiere 8 caracteres minimo").required("Este campo es requerido"),
@@ -11,15 +13,19 @@ const schema = yup.object({
         .oneOf([yup.ref('password'), null], 'La contraseña no coincide'),
 }).required();
 
-const defaultValues = {
-    password: '',
-    confirmedPassword: '',
-}
-
 const ResetPassword = () => {
 
+    const params = useParams()
+    const location = useLocation()
+    const querystring = queryString.parse(location.search);
+
     const { register, handleSubmit, formState:{ errors } } = useForm({
-        defaultValues,
+        defaultValues: {
+            token: params.token,
+            email: querystring.email,
+            password: '',
+            confirmedPassword: '',
+        },
         resolver: yupResolver(schema)
     });
     const onSubmit = data => {

@@ -22,12 +22,13 @@
     },
     "dependencies": {
         "@hookform/resolvers": "^2.9.7",
+        "@reduxjs/toolkit": "^1.8.1",
         "babel-preset-react": "^6.24.1",
+        "feather-icons": "4.29.0",
+        "query-string": "^7.1.1",
         "react-hook-form": "^7.34.0",
-        "yup": "^0.32.11",
         "react-redux": "^8.0.2",
         "simplebar": "5.3.8",
-        "feather-icons": "4.29.0",
-        "@reduxjs/toolkit": "^1.8.1"
+        "yup": "^0.32.11"
     }
 }

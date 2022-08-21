@@ -27,7 +27,9 @@ class QueuedResetPassword extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->view('auth.reset-password', [
+            ->error()
+            ->subject('Notification Subject')
+            ->view('auth.reset-password-email', [
                 'url' => $this->url
             ]);
     }

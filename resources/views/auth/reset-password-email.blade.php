@@ -320,14 +320,14 @@
 
 <body width="100%" style="margin: 0; padding: 0 !important; mso-line-height-rule: exactly; background-color: #f1f1f1;">
 <center style="width: 100%; background-color: #f1f1f1;">
-    <div style="max-width: 600px; margin: 0 auto;" class="email-container">
+    <div style="max-width: 600px; margin: 0 auto; margin-top: 100px" class="email-container">
         <!-- BEGIN BODY -->
         <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: auto;">
-            <tr>
-                <td valign="middle" class="hero bg_white" style="padding: 3em 0 2em 0;">
-                    <img src="{{asset('img/email/email-verify.png')}}" alt="" style="width: 200px; max-width: 400px; height: auto; margin: auto; display: block;">
-                </td>
-            </tr><!-- end tr -->
+{{--            <tr>--}}
+{{--                <td valign="middle" class="hero bg_white" style="padding: 3em 0 2em 0;">--}}
+{{--                    <img src="{{asset('img/email/email-verify.png')}}" alt="" style="width: 200px; max-width: 400px; height: auto; margin: auto; display: block;">--}}
+{{--                </td>--}}
+{{--            </tr><!-- end tr -->--}}
 
             <tr>
                 <td valign="middle" class="hero bg_white" style="padding: 2em 0 4em 0;">
