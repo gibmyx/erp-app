@@ -13,6 +13,12 @@ use Illuminate\Validation\Rules;
 
 class NewPasswordController extends Controller
 {
+    private $messages = [
+        Password::PASSWORD_RESET => "Contraseña cambiada con exito.",
+        Password::INVALID_USER => "El correo no es valido.",
+        Password::INVALID_TOKEN => "El link de recuperacion de contraseña no es valido",
+    ];
+
     public function __invoke(Request $request)
     {
         $request->validate([
@@ -42,7 +48,9 @@ class NewPasswordController extends Controller
         }
 
         return response()->json([
-            "message" => $status,
+            "message" => key_exists($status, $this->messages)
+                ? $this->messages[$status]
+                : "Ah currido un error. Por favor intentelo mas tarde",
             "ok" => $status == Password::PASSWORD_RESET ? true : false
         ], $code);
     }

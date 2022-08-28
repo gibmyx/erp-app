@@ -4,6 +4,8 @@ import erpApi from "../../../../shared/api/erpApi";
 import {
     onLogin,
     onLogout,
+    onClearMessage,
+    onSuccesssMessage,
     TYPE_CHECKING,
     TYPE_AUTHENTICATED,
     TYPE_NOT_AUTHENTICATED
@@ -12,12 +14,14 @@ import {
 export const useAuthStore = () => {
 
     const {
-        status
+        status,
+        errorMessage,
+        successMessage
     } = useSelector(state => state.auth);
     const dispatch = useDispatch();
 
     const startLogin = async ({email, password}) => {
-
+        dispatch(onClearMessage());
         try {
             const {data} = await erpApi.post('/auth/login', {email, password});
             const {user} = data
@@ -30,16 +34,26 @@ export const useAuthStore = () => {
     }
 
     const startForgotPassword = async ({email}) => {
+        dispatch(onClearMessage());
         try {
-            await erpApi.post('/auth/forgot-password', {email});
+            const {data} =  await erpApi.post('/auth/forgot-password', {email});
+            const {message} = data
+            dispatch(onSuccesssMessage(message));
         } catch (error) {
+            localStorage.clear();
+            dispatch(onLogout(error.response.data.message));
         }
     }
 
     const startResetPassword = async ({email, token, password, confirmedPassword}) => {
+        dispatch(onClearMessage());
         try {
-            await erpApi.post('/auth/reset-password', {email, token, password, password_confirmation: confirmedPassword});
+            const {data} = await erpApi.post('/auth/reset-password', {email, token, password, password_confirmation: confirmedPassword});
+            const {message} = data
+            dispatch(onSuccesssMessage(message));
         } catch (error) {
+            localStorage.clear();
+            dispatch(onLogout(error.response.data.message));
         }
     }
 
@@ -65,9 +79,15 @@ export const useAuthStore = () => {
         dispatch(onLogout());
     }
 
+    const clearMessage = async () => {
+        dispatch(onClearMessage());
+    }
+
     return {
         //* Propiedades
         status,
+        errorMessage,
+        successMessage,
         TYPE_CHECKING,
         TYPE_AUTHENTICATED,
         TYPE_NOT_AUTHENTICATED,
@@ -76,6 +96,7 @@ export const useAuthStore = () => {
         //* Métodos
         startLogin,
         startLogout,
+        clearMessage,
         checkingAuth,
         startResetPassword,
         startForgotPassword,

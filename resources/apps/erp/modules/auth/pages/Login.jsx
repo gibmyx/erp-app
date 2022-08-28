@@ -4,6 +4,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import {useForm} from "react-hook-form";
 import {useAuthStore} from "../hooks";
+import {useEffect} from "react";
+
+//TODO: assets
+import Alert from './../../../../shared/assets/icons/triangle-exclamation-solid.svg'
 
 const schema = yup.object({
     email: yup.string().email().required(),
@@ -18,9 +22,9 @@ const defaultValues = {
 }
 
 const Login = () => {
-    const {startLogin} = useAuthStore();
+    const {errorMessage, startLogin, clearMessage} = useAuthStore();
 
-    const { register, handleSubmit, formState:{ errors , isSubmitted} } = useForm({
+    const { register, handleSubmit, formState:{ errors , isSubmitting} } = useForm({
         defaultValues,
         resolver: yupResolver(schema)
     });
@@ -28,6 +32,15 @@ const Login = () => {
     const onSubmit = data => {
         startLogin(data)
     };
+
+
+    useEffect(() => {
+        if (errorMessage) {
+            setTimeout(() => {
+                clearMessage()
+            }, 10000);
+        }
+    }, [errorMessage]);
 
     return (
         <AuthLayout>
@@ -61,8 +74,19 @@ const Login = () => {
                     <Link to="/auth/forgot-password" className="text-body">¿Olvidaste tu contraseña?</Link>
                 </div>
 
+                {
+                    errorMessage && (
+                        <div className="text-center text-lg-start mt-4 pt-2">
+                            <div className="alert alert-danger text-center" role="alert">
+                                <img src={Alert} alt="Alert" width="20" height="20" className="me-2"/>
+                                {errorMessage}
+                            </div>
+                        </div>
+                    )
+                }
+
                 <div className="text-center text-lg-start mt-4 pt-2">
-                    <button type="submit" className="btn btn-primary" disabled={isSubmitted}
+                    <button type="submit" className="btn btn-primary" disabled={isSubmitting}
                             style={{paddingLeft: '2.5rem', paddingRight: '2.5rem'}}>Entrar
                     </button>
                 </div>

@@ -4,6 +4,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import {useForm} from "react-hook-form";
 import {useAuthStore} from "../hooks";
+import {useEffect} from "react";
+
+//TODO: assets
+import Alert from './../../../../shared/assets/icons/triangle-exclamation-solid.svg'
+import Success from './../../../../shared/assets/icons/check-solid.svg'
 
 const schema = yup.object({
     email: yup.string().email().required(),
@@ -13,9 +18,9 @@ const defaultValues = {
     email: '',
 }
 const ForgotPassword = () => {
-    const {startForgotPassword} = useAuthStore()
+    const {errorMessage, successMessage, startForgotPassword, clearMessage} = useAuthStore()
 
-    const { register, handleSubmit, formState:{ errors } } = useForm({
+    const { register, handleSubmit, formState:{ errors, isSubmitting } } = useForm({
         defaultValues,
         resolver: yupResolver(schema)
     });
@@ -23,6 +28,14 @@ const ForgotPassword = () => {
     const onSubmit = data => {
         startForgotPassword(data)
     };
+
+    useEffect(() => {
+        if (errorMessage || successMessage) {
+            setTimeout(() => {
+                clearMessage()
+            }, 10000);
+        }
+    }, [errorMessage, successMessage]);
 
     return (
         <AuthLayout>
@@ -38,16 +51,36 @@ const ForgotPassword = () => {
                     <p className="errorForm">{errors.email?.message}</p>
                 </div>
 
-                <div className="d-flex justify-content-between align-items-center">
-                    <div className="form-check mb-0">
-                    </div>
-                    <Link to="/auth/login" className="text-body">Iniciar sesion</Link>
-                </div>
+                {
+                    errorMessage && (
+                        <div className="text-center text-lg-start mt-4 pt-2">
+                            <div className="alert alert-danger text-center" role="alert">
+                                <img src={Alert} alt="Alert" width="20" height="20" className="me-2"/>
+                                {errorMessage}
+                            </div>
+                        </div>
+                    )
+                }
+
+                {
+                    successMessage && (
+                        <div className="text-center text-lg-start mt-4 pt-2">
+                            <div className="alert alert-success text-center" role="alert">
+                                <img src={Success} alt="Success" width="20" height="20" className="me-2"/>
+                                {successMessage}
+                            </div>
+                        </div>
+                    )
+                }
 
                 <div className="text-center text-lg-start mt-4 pt-2">
-                    <button type="submit" className="btn btn-primary"
+                    <button type="submit" className="btn btn-primary" disabled={isSubmitting}
                             style={{paddingLeft: '2.5rem', paddingRight: '2.5rem'}}>Enviar
                     </button>
+                </div>
+
+                <div className="d-flex justify-content-between align-items-center mt-3">
+                    <Link to="/auth/login" className="text-body">Iniciar sesion</Link>
                 </div>
             </form>
         </AuthLayout>

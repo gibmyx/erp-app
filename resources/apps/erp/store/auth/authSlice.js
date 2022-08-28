@@ -8,6 +8,7 @@ export const authSlice = createSlice({
     name: 'auth',
     initialState: {
         errorMessage: null,
+        successMessage: null,
         status: TYPE_CHECKING, // 'checking', 'authenticated','not-authenticated',
         user: {},
     },
@@ -17,7 +18,7 @@ export const authSlice = createSlice({
             state.user   = {};
             state.errorMessage = null;
         },
-        onLogin: ( state, {payload}) => {
+        onLogin: ( state, { payload }) => {
             state.status = TYPE_AUTHENTICATED;
             state.user = payload;
             state.errorMessage = null;
@@ -26,8 +27,15 @@ export const authSlice = createSlice({
             state.status = TYPE_NOT_AUTHENTICATED;
             state.user   = {};
             state.errorMessage = payload;
+        },
+        onSuccesssMessage: ( state, { payload } ) => {
+            state.successMessage = payload;
+        },
+        onClearMessage: ( state) => {
+            state.errorMessage = null;
+            state.successMessage = null;
         }
     }
 });
 
-export const {onChecking, onLogin, onLogout} = authSlice.actions;
+export const {onChecking, onLogin, onLogout, onClearMessage, onSuccesssMessage} = authSlice.actions;

@@ -5,6 +5,12 @@ import {useForm} from "react-hook-form";
 import {useLocation, useParams} from "react-router";
 import queryString from 'query-string';
 import {useAuthStore} from "../hooks";
+import {useEffect} from "react";
+import {Link} from "react-router-dom";
+
+//TODO: assets
+import Alert from './../../../../shared/assets/icons/triangle-exclamation-solid.svg'
+import Success from './../../../../shared/assets/icons/check-solid.svg'
 
 const schema = yup.object({
     password: yup.string().min(8, "La contraseña requiere 8 caracteres minimo").required("Este campo es requerido"),
@@ -20,9 +26,9 @@ const ResetPassword = () => {
     const location = useLocation()
     const querystring = queryString.parse(location.search);
 
-    const {startResetPassword} = useAuthStore();
+    const {errorMessage, successMessage, startResetPassword, clearMessage} = useAuthStore();
 
-    const { register, handleSubmit, formState:{ errors } } = useForm({
+    const { register, handleSubmit, formState:{ errors, isSubmitting } } = useForm({
         defaultValues: {
             token: params.token,
             email: querystring.email,
@@ -31,9 +37,18 @@ const ResetPassword = () => {
         },
         resolver: yupResolver(schema)
     });
+
     const onSubmit = data => {
         startResetPassword(data)
     };
+
+    useEffect(() => {
+        if (errorMessage || successMessage) {
+            setTimeout(() => {
+                clearMessage()
+            }, 10000);
+        }
+    }, [errorMessage, successMessage]);
 
     return (
         <AuthLayout>
@@ -56,10 +71,36 @@ const ResetPassword = () => {
                     <p className="errorForm">{errors.confirmedPassword?.message}</p>
                 </div>
 
+                {
+                    errorMessage && (
+                        <div className="text-center text-lg-start mt-4 pt-2">
+                            <div className="alert alert-danger text-center" role="alert">
+                                <img src={Alert} alt="Alert" width="20" height="20" className="me-2"/>
+                                {errorMessage}
+                            </div>
+                        </div>
+                    )
+                }
+
+                {
+                    successMessage && (
+                        <div className="text-center text-lg-start mt-4 pt-2">
+                            <div className="alert alert-success text-center" role="alert">
+                                <img src={Success} alt="Alert" width="20" height="20" className="me-2"/>
+                                {successMessage}
+                            </div>
+                        </div>
+                    )
+                }
+
                 <div className="text-center text-lg-start mt-4 pt-2">
-                    <button type="submit" className="btn btn-primary"
+                    <button type="submit" className="btn btn-primary" disabled={isSubmitting}
                             style={{paddingLeft: '2.5rem', paddingRight: '2.5rem'}}>Cambiar contraseña
                     </button>
+                </div>
+
+                <div className="d-flex justify-content-between align-items-center mt-3">
+                    <Link to="/auth/login" className="text-body">Iniciar sesion</Link>
                 </div>
             </form>
         </AuthLayout>

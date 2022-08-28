@@ -12,6 +12,12 @@ use Illuminate\Validation\ValidationException;
 
 final class ForgotPasswordController extends Controller
 {
+    private $messages = [
+        Password::RESET_LINK_SENT => "Correo de enviado con exito.",
+        Password::RESET_THROTTLED => "Por favor espere unos minutos para enviar nuevamente el correo.",
+        Password::INVALID_USER => "El correo no es valido.",
+    ];
+
     public function __invoke(Request $request)
     {
         $request->validate([
@@ -33,7 +39,9 @@ final class ForgotPasswordController extends Controller
         }
 
         return response()->json([
-            "message" => $status,
+            "message" => key_exists($status, $this->messages)
+                ? $this->messages[$status]
+                : "Ah currido un error. Por favor intentelo mas tarde",
             "ok" => $status == Password::RESET_LINK_SENT ? true : false
         ], $code);
     }
