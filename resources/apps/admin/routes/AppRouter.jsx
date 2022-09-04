@@ -11,7 +11,7 @@ export const AppRouter = () => {
 
     if (status === TYPE_CHECKING)
         return <CheckingRouter/>
-    administrators
+
     return (
         <BrowserRouter>
             <Suspense fallback={<div>Loading...</div>}>
