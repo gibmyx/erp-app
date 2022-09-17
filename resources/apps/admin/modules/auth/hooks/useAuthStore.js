@@ -23,7 +23,7 @@ export const useAuthStore = () => {
     const startLogin = async ({email, password}) => {
         dispatch(onClearMessage());
         try {
-            const {data} = await erpApi.post('/auth/login', {email, password});
+            const {data} = await erpApi.post('/admin/auth/login', {email, password});
             const {user} = data
             localStorage.setItem('user', user);
             dispatch(onLogin(user));
@@ -36,7 +36,7 @@ export const useAuthStore = () => {
     const startForgotPassword = async ({email}) => {
         dispatch(onClearMessage());
         try {
-            const {data} =  await erpApi.post('/auth/forgot-password', {email});
+            const {data} =  await erpApi.post('/admin/auth/forgot-password', {email});
             const {message} = data
             dispatch(onSuccesssMessage(message));
         } catch (error) {
@@ -48,7 +48,7 @@ export const useAuthStore = () => {
     const startResetPassword = async ({email, token, password, confirmedPassword}) => {
         dispatch(onClearMessage());
         try {
-            const {data} = await erpApi.post('/auth/reset-password', {email, token, password, password_confirmation: confirmedPassword});
+            const {data} = await erpApi.post('/admin/auth/reset-password', {email, token, password, password_confirmation: confirmedPassword});
             const {message} = data
             dispatch(onSuccesssMessage(message));
         } catch (error) {
@@ -63,7 +63,7 @@ export const useAuthStore = () => {
         if ( !user ) return dispatch( onLogout() );
 
         try {
-            const { data } = await erpApi.get('/auth/verify-user');
+            const { data } = await erpApi.get('/admin/auth/verify-user');
             const {user} = data
             localStorage.setItem('user', user );
             dispatch(onLogin(user));
@@ -74,7 +74,7 @@ export const useAuthStore = () => {
     }
 
     const startLogout = async () => {
-        await erpApi.post('/auth/logout');
+        await erpApi.post('/admin/auth/logout');
         localStorage.clear();
         dispatch(onLogout());
     }

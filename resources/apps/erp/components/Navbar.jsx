@@ -1,8 +1,10 @@
 import {useAuthStore} from "../modules/auth/hooks";
+import {useSelector} from "react-redux";
 
 export const Navbar = () => {
 
     const {startLogout} = useAuthStore()
+    const {user} = useSelector(state => state.auth)
 
     return (
         <nav className="navbar navbar-expand navbar-light navbar-bg">
@@ -94,7 +96,7 @@ export const Navbar = () => {
 
                         <a className="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
                            data-bs-toggle="dropdown">
-                            <span className="text-dark">Charles Hall</span>
+                            <span className="text-dark">{user && user.name}</span>
                         </a>
                         <div className="dropdown-menu dropdown-menu-end">
                             <a className="dropdown-item" href="">

@@ -13,6 +13,8 @@ class Administrator extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    protected $table = "administrators";
+
     protected $fillable = [
         'name',
         'email',
@@ -30,7 +32,7 @@ class Administrator extends Authenticatable
 
     public function sendPasswordResetNotification($token)
     {
-        $url = route("password.reset", [$token]);
+        $url = route("password.admin.reset", [$token]);
         $url = "{$url}?email={$this->email}";
         $this->notify(new \App\Notifications\Auth\QueuedResetPassword($url));
     }
