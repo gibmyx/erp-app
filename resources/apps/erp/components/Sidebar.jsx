@@ -1,5 +1,6 @@
 import {useEffect} from "react";
 import SimpleBar from "simplebar";
+import {Link, NavLink} from "react-router-dom";
 
 const initializeSimplebar = () => {
     const simplebarElement = document.getElementsByClassName("js-simplebar")[0];
@@ -52,42 +53,28 @@ export const Sidebar = () => {
                 </a>
 
                 <ul className="sidebar-nav">
-                    <li className="sidebar-header">
-                        Pages
-                    </li>
-
-                    <li className="sidebar-item active">
-                        <a className="sidebar-link" href="#">
+                    <li className="sidebar-item">
+                        <NavLink
+                            className="sidebar-link"
+                            to="dashboard">
                             <i className="align-middle" data-feather="sliders"></i>
                             <span className="align-middle">Dashboard</span>
-                        </a>
+                        </NavLink>
+                    </li>
+                </ul>
+
+                <ul className="sidebar-nav">
+                    <li className="sidebar-header">
+                        Administracion
                     </li>
 
                     <li className="sidebar-item">
-                        <a className="sidebar-link" href="#">
-                            <i className="align-middle" data-feather="user"></i>
-                            <span className="align-middle">Profile</span>
-                        </a>
-                    </li>
-
-                    <li className="sidebar-item">
-                        <a className="sidebar-link" href="#">
-                            <i className="align-middle" data-feather="log-in"></i> <span className="align-middle">Sign In</span>
-                        </a>
-                    </li>
-
-                    <li className="sidebar-item">
-                        <a className="sidebar-link" href="#">
-                            <i className="align-middle" data-feather="user-plus"></i> <span
-                            className="align-middle">Sign Up</span>
-                        </a>
-                    </li>
-
-                    <li className="sidebar-item">
-                        <a className="sidebar-link" href="#">
-                            <i className="align-middle" data-feather="book"></i> <span
-                            className="align-middle">Blank</span>
-                        </a>
+                        <NavLink
+                            className={'sidebar-link active'}
+                            to="roles/list">
+                            <i className="align-middle" data-feather="key"></i>
+                            <span className="align-middle">Roles</span>
+                        </NavLink>
                     </li>
                 </ul>
 

@@ -3,7 +3,7 @@ import {useSelector} from "react-redux";
 
 export const Navbar = () => {
 
-    const {startLogout} = useAuthStore()
+    const {startLogout, checkingAuth} = useAuthStore()
     const {user} = useSelector(state => state.auth)
 
     return (
@@ -100,11 +100,17 @@ export const Navbar = () => {
                         </a>
                         <div className="dropdown-menu dropdown-menu-end">
                             <a className="dropdown-item" href="">
-                                <i className="align-middle me-1" data-feather="user"></i>Profile
+                                <i className="align-middle me-1" data-feather="user"></i>
+                                Profile
                             </a>
-                            <a className="dropdown-item" href=""><i className="align-middle me-1"
-                                                                    data-feather="settings"></i> Settings
-                                & Privacy</a>
+                            <a className="dropdown-item" href="">
+                                <i className="align-middle me-1" data-feather="settings"></i>
+                                Settings & Privacy
+                            </a>
+                            <a className="dropdown-item" href="" onClick={() => checkingAuth()}>
+                                <i className="align-middle me-1" data-feather="settings"></i>
+                                Verific sesion
+                            </a>
                             <div className="dropdown-divider"></div>
                             <a className="dropdown-item" onClick={() => startLogout()}>
                                 <i className="align-middle me-1" data-feather="log-out"/>Log out

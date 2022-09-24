@@ -20,6 +20,3 @@ Route::get('/', function () {
 });
 require __DIR__.'/erp/auth/web.php';
 require __DIR__.'/erp/dashboard/web.php';
-
-require __DIR__.'/admin/auth/web.php';
-require __DIR__.'/admin/dashboard/web.php';

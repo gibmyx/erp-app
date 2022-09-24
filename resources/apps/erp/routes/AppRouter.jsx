@@ -1,6 +1,5 @@
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
-import {Suspense} from 'react';
-import {AuthRoutes} from "../modules/auth/router/AuthRoutes";
+import {AuthRoutes} from "./AuthRoutes";
 import {useAuthStore} from "../modules/auth/hooks";
 import {PrivateRouter} from "./PrivateRouter";
 import {CheckingRouter} from "./CheckingRouter";
@@ -14,7 +13,6 @@ export const AppRouter = () => {
 
     return (
         <BrowserRouter>
-            <Suspense fallback={<div>Loading...</div>}>
                 <Routes>
                     {
                         (status === TYPE_NOT_AUTHENTICATED)
@@ -31,7 +29,6 @@ export const AppRouter = () => {
                             )
                     }
                 </Routes>
-            </Suspense>
         </BrowserRouter>
     );
 };

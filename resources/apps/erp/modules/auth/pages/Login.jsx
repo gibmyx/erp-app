@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom";
-import AuthLayout from "../layout/AuthLayout";
+import AuthLayout from "./../../../layouts/AuthLayout";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import {useForm} from "react-hook-form";

@@ -1,5 +1,6 @@
 import {useEffect} from "react";
 import {useAuthStore} from "../modules/auth/hooks";
+import Loader from "../../shared/components/Loader";
 
 export const CheckingRouter = () => {
 
@@ -10,6 +11,6 @@ export const CheckingRouter = () => {
     }, []);
 
     return (
-        <div>Loading...</div>
+        <Loader/>
     );
 };
