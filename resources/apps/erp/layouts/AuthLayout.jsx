@@ -1,5 +1,5 @@
-import imgLogin from "../assets/img/img.png";
-import './../assets/css/style.css'
+import imgLogin from "./../modules/auth/assets/img/img.png";
+import './../modules/auth/assets/css/style.css'
 
 const AuthLayout = ({children}) => (
     <section className="vh-100" style={{overflow: "hidden"}}>
